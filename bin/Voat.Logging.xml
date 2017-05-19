@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Voat.Logging</name>
+    </assembly>
+    <members>
+        <member name="P:Voat.Logging.LogInformation.Data">
+            <summary>
+            Any additional data that needs to be logged. This object will be serialized to JSON and stored as a string by system loggers.
+            </summary>
+        </member>
+        <member name="M:Voat.Logging.LogInformation.ToString">
+            <summary>
+            Use only for simple debugging
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

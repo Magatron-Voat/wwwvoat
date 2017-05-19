@@ -1,0 +1,1148 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Voat.Business</name>
+    </assembly>
+    <members>
+        <member name="M:Voat.Caching.CacheHandler.Register``1(System.String,System.Func{``0},System.TimeSpan,System.Int32)">
+            <summary>
+            Registers a function for cache. Locks by key and generates data for return from function
+            </summary>
+            <param name="key">Unique Cache Keys</param>
+            <param name="getData">Function that returns data to be placed in cache</param>
+            <param name="cacheTime">The timespan in which to update or remove item from cache</param>
+            <param name="refetchLimit">Value indicating refresh behavior. -1: Do not refresh, 0: Unlimited refresh (use with caution), x > 0: Number of times to refresh cached data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.CacheHandler.Register``1(System.String,System.Func{System.Threading.Tasks.Task{``0}},System.TimeSpan,System.Int32)">
+            <summary>
+            Registers a function for cache. Locks by key and generates data for return from function
+            </summary>
+            <param name="key">Unique Cache Keys</param>
+            <param name="getData">Function that returns data to be placed in cache</param>
+            <param name="cacheTime">The timespan in which to update or remove item from cache</param>
+            <param name="refetchLimit">Value indicating refresh behavior. -1: Do not refresh, 0: Unlimited refresh (use with caution), x > 0: Number of times to refresh cached data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.CachePolicy.#ctor(System.TimeSpan,System.Int32,System.Boolean)">
+            <summary>
+            Specifies a caching policy
+            </summary>
+            <param name="duration">The duration item remains in cache</param>
+            <param name="refetchLimit">The number of times a cached item is refreshed. Never (-1), Forever (0), or a specific number of times</param>
+            <param name="isSliding">Is cache duration renewed upon access of cached item (Not Currently Implemented)</param>
+        </member>
+        <member name="T:Voat.Caching.NullCacheHandler">
+            <summary>
+            This class is used to plug in no-cache behavior in Voat.
+            </summary>
+        </member>
+        <member name="P:Voat.Caching.ICacheHandler.CacheEnabled">
+            <summary>
+            Determines if cache is enabled
+            </summary>
+        </member>
+        <member name="P:Voat.Caching.ICacheHandler.RefetchEnabled">
+            <summary>
+            Determines if cache will honor refetch parameters and background refetch entries if specified
+            </summary>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Exists(System.String)">
+            <summary>
+            Checks if a cached object exists at specified key
+            </summary>
+            <param name="cacheKey">Unique Cache Key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Register``1(System.String,System.Func{``0},System.TimeSpan,System.Int32)">
+            <summary>
+            Registers a cache Func with caching runtime. Will return the cached data if it exists, if it doesn't will execute func and store in cache.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <param name="getData">Function that returns data to be placed in cache</param>
+            <param name="cacheTime">The timespan in which to update or remove item from cache</param>
+            <param name="refetchLimit">Value indicating refresh behavior. -1: Do not refresh, 0: Unlimited refresh (use with caution), x > 0: Number of times to refresh cached data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Register``1(System.String,System.Func{System.Threading.Tasks.Task{``0}},System.TimeSpan,System.Int32)">
+            <summary>
+            Registers a cache Func with caching runtime. Will return the cached data if it exists, if it doesn't will execute func and store in cache.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <param name="getData">Function that returns data to be placed in cache</param>
+            <param name="cacheTime">The timespan in which to update or remove item from cache</param>
+            <param name="refetchLimit">Value indicating refresh behavior. -1: Do not refresh, 0: Unlimited refresh (use with caution), x > 0: Number of times to refresh cached data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Remove(System.String)">
+            <summary>
+            Removes cached item at key
+            </summary>
+            <param name="cacheKey">Unique Cache Key</param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Purge">
+            <summary>
+            Purges all cache items
+            </summary>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Replace``1(System.String,System.Func{``0,``0},System.Nullable{System.TimeSpan})">
+            <summary>
+            Replaces cached item at key after processing via Func.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <param name="replaceAlg"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Replace``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            Replaces cached item at key after processing via Func
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <param name="replaceAlg"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.ReplaceIfExists``1(System.String,System.Func{``0,``0},System.Nullable{System.TimeSpan})">
+            <summary>
+            Replaces cached item at key after processing via Func.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <param name="replaceAlg"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.ReplaceIfExists``1(System.String,``0,System.Nullable{System.TimeSpan})">
+            <summary>
+            Replaces cached item at key after processing via Func
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <param name="replaceAlg"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.Retrieve``1(System.String)">
+            <summary>
+            Returns object in cache with specified key
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey">Unique Cache Key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.DictionaryRemove``1(System.String,``0)">
+            <summary>
+            Removes dictionary item in cached dictionary at specified key
+            </summary>
+            <typeparam name="K">Key Type</typeparam>
+            <param name="cacheKey"></param>
+            <param name="key"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.DictionaryReplace``2(System.String,``0,``1)">
+            <summary>
+            Method will insert or replace cache object at specified dictionary key.
+            </summary>
+            <typeparam name="K">Key Type</typeparam>
+            <typeparam name="V">Value Type</typeparam>
+            <param name="cacheKey"></param>
+            <param name="key"></param>
+            <param name="newObject"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.DictionaryReplace``2(System.String,``0,System.Func{``1,``1},System.Boolean)">
+            <summary>
+            Replaces dictionary item at key after processing via Func
+            </summary>
+            <typeparam name="K">Key Type</typeparam>
+            <typeparam name="V">Value Type</typeparam>
+            <param name="cacheKey"></param>
+            <param name="key"></param>
+            <param name="replaceAlg"></param>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.DictionaryRetrieve``2(System.String,``0)">
+            <summary>
+            Retrieves dictionary item in cached dictionary at specified key
+            </summary>
+            <typeparam name="K">Key Type</typeparam>
+            <typeparam name="V">Value Type</typeparam>
+            <param name="cacheKey"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.ICacheHandler.DictionaryExists``1(System.String,``0)">
+            <summary>
+            Checks if a cached dictionary contains specified key
+            </summary>
+            <typeparam name="K">Key Type</typeparam>
+            <param name="cacheKey"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.DataCache.Submission.Retrieve(System.Nullable{System.Int32})">
+            <summary>
+            </summary>
+            <param name="submissionID">Using Nullable because everything seems to be nullable in this entire project</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Caching.DataCache.Submission_New.Retrieve(System.Nullable{System.Int32})">
+            <summary>
+            </summary>
+            <param name="submissionID">Using Nullable because everything seems to be nullable in this entire project</param>
+            <returns></returns>
+        </member>
+        <member name="T:Voat.Common.Age">
+            <summary>
+            Turns TimeSpans into friendly ages. 1 day, 12 hours, etc.
+            </summary>
+        </member>
+        <member name="T:Voat.Common.Score">
+            <summary>
+            A generic class to store up/down votes and up/down ccp and scp calculations.
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.Total">
+            <summary>
+            Total = UpCount + DownCount
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.Sum">
+            <summary>
+            Sum = UpCount - DownCount
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.UpCount">
+            <summary>
+            UpCount count
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.DownCount">
+            <summary>
+            DownCount count
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.UpRatio">
+            <summary>
+            Ratio of UpCount to Total
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.DownRatio">
+            <summary>
+            Ratio of DownCount to Total
+            </summary>
+        </member>
+        <member name="P:Voat.Common.Score.Bias">
+            <summary>
+            The ratio of UpCount to DownCount. 1 is an even distribution. If greater than 1: UpCount bias, less than 1: DownCount bias.
+            </summary>
+        </member>
+        <member name="M:Voat.Common.Score.Combine(Voat.Common.Score)">
+            <summary>
+            Adds two Score objects together. Or us the + operator
+            </summary>
+            <param name="add">The Score to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Configuration.ArgumentParser.Parse(System.String)">
+            <summary>
+            Simple formatter for parsing argument lists in the form of [Type](Value),[Type](Value).
+            </summary>
+            <param name="argumentValue">The string to be converted to object[]</param>
+        </member>
+        <member name="P:Voat.Configuration.Settings.RedirectToSiteDomain">
+            <summary>
+            Will redirect incoming requests that don't match the site domain to the value specified in siteDomain
+            </summary>
+        </member>
+        <member name="T:Voat.RuntimeStateSetting">
+            <summary>
+            This setting specifies which mode the runtime is set to.
+            </summary>
+        </member>
+        <member name="F:Voat.RuntimeStateSetting.Disabled">
+            <summary>
+            Api is disabled.
+            </summary>
+        </member>
+        <member name="F:Voat.RuntimeStateSetting.Read">
+            <summary>
+            Api is in a read-only state.
+            </summary>
+        </member>
+        <member name="F:Voat.RuntimeStateSetting.Write">
+            <summary>
+            Api is in a write-only state.
+            </summary>
+        </member>
+        <member name="F:Voat.RuntimeStateSetting.Enabled">
+            <summary>
+            Api is fully enabled.
+            </summary>
+        </member>
+        <member name="F:Voat.RuntimeStateSetting.ReadWrite">
+            <summary>
+            Api is fully enabled.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:Voat.RuntimeState.API_CONFIG_KEY_NAME" -->
+        <member name="M:Voat.Data.Repository.Save(Voat.Domain.Models.ContentType,System.Int32,System.Nullable{System.Boolean})">
+            <summary>
+            Save Comments and Submissions toggle.
+            </summary>
+            <param name="type">The type of content in which to save</param>
+            <param name="ID">The ID of the item in which to save</param>
+            <param name="forceAction">Forces the Save function to operate as a Save only or Unsave only rather than a toggle. If true, will only save if it hasn't been previously saved, if false, will only remove previous saved entry, if null (default) will function as a toggle.</param>
+            <returns>The end result if the item is saved or not. True if saved, false if not saved.</returns>
+        </member>
+        <member name="M:Voat.Data.Repository.SendMessage(Voat.Domain.Models.Message)">
+            <summary>
+            Main SendMessage routine.
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Data.Repository.Unblock(Voat.Domain.Models.DomainType,System.String)">
+            <summary>
+            Unblocks a domain type
+            </summary>
+            <param name="domainType"></param>
+            <param name="name"></param>
+        </member>
+        <member name="M:Voat.Data.Repository.Block(Voat.Domain.Models.DomainType,System.String)">
+            <summary>
+            Blocks a domain type
+            </summary>
+            <param name="domainType"></param>
+            <param name="name"></param>
+        </member>
+        <member name="M:Voat.Data.Repository.Block(Voat.Domain.Models.DomainType,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Blocks, Unblocks, or Toggles blocks
+            </summary>
+            <param name="domainType"></param>
+            <param name="name"></param>
+            <param name="block">If null then toggles, else, blocks or unblocks based on value</param>
+        </member>
+        <member name="T:Voat.Data.SearchOptions">
+            <summary>
+            Provide these Query string key/value pairs at endpoints that support the SearchOptions parsing to manipulate search query. 
+            </summary>
+        </member>
+        <member name="M:Voat.Data.SearchOptions.ParseAdditionalKeyPairs(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
+            <summary>
+            Override this method if you extend from SearchOptions to handle all keypairs the SearchOptions base class didn't.
+            </summary>
+            <param name="keypairs"></param>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.Span">
+            <summary>
+            The span of time your search encompases.  Specify the text value in querystring.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.Sort">
+            <summary>
+            The sort algorithm used to order search results. Specify the text value in querystring.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.SortDirection">
+            <summary>
+            The sort order requested.  Specify the text value in querystring.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.StartDate">
+            <summary>
+            The date for which to calculate a span.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.EndDate">
+            <summary>
+            The end date for limiting search results.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.Count">
+            <summary>
+            The number of search records requested. Max Value is 50.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.Page">
+            <summary>
+            [NEW] The page in which to retrieve. This value simply overriddes 'Index' and calculates it for you. How nice are we? Fairly nice I must say. Paging starts on page 1 not page 0.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.Phrase">
+            <summary>
+            The search value to match for submissions or comments.
+            </summary>
+        </member>
+        <member name="P:Voat.Data.SearchOptions.QueryStrings">
+            <summary>
+            Represents the original querystring arguments the Search class was constructed with.
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Command.CacheCommand`1">
+            <summary>
+            Use this class when the command has all the information necessary to execute UpdateCache method.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Voat.Domain.Command.CacheCommand`2">
+            <summary>
+            Use this class when the command produces input for the UpdateCache method.
+            </summary>
+            <typeparam name="T">Type the Command returns</typeparam>
+            <typeparam name="C">Type used as input for UpdateCache(C c) method</typeparam>
+        </member>
+        <member name="P:Voat.Domain.Command.CommandResponse.Message">
+            <summary>
+            The friendly description to be used if information is displayed on the UI or to the user.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Command.SubverseUserActionResponse.Subverse">
+            <summary>
+            Subverse that the action involved
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Command.UserActionResponse.OriginUserName">
+            <summary>
+            User that initiated the action
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Command.UserActionResponse.TargetUserName">
+            <summary>
+            User that was the target or destination of action
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.CommentSegment">
+            <summary>
+            Represents a chunk of comments
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.Comments">
+            <summary>
+            The list of comments this segment contains
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.EndingIndex">
+            <summary>
+            The ending index of this comment segment (zero is lowest bound of index)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.SegmentCount">
+            <summary>
+            The count of comments this segment contains
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.StartingIndex">
+            <summary>
+            The starting index of this comment segment (zero is lowest bound of index)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.Sort">
+            <summary>
+            The sort order of the comment segment
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.TotalCount">
+            <summary>
+            Represents the total count of comments at this level (root or children of a parent comment)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.HasMore">
+            <summary>
+            Returns true if this segment has more records than what this segment includes
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.CommentSegment.RemainingCount">
+            <summary>
+            Returns the remaining record count in this segment
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.NestedComment">
+            <summary>
+            Represents a hierarchical comment tree. This is an experimental class for testing nested comment output via the API.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.NestedComment.ChildCount">
+            <summary>
+            Child comment count. This is a count of direct decedents only.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.NestedComment.Children">
+            <summary>
+            Contains the child comments for this comment.
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.SubmissionComment">
+            <summary>
+            Represents a single comment including necessary submission fields
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.BannedItem">
+            <summary>
+            Represents a banned entity
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.BannedItem.CreationDate">
+            <summary>
+            The date the ban was put in place
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.BannedItem.Name">
+            <summary>
+            The name of the banned item
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.BannedItem.Reason">
+            <summary>
+            The reason given for the ban
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.Comment">
+            <summary>
+            Comment information
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.Content">
+            <summary>
+            The raw content of this item.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.CreationDate">
+            <summary>
+            Date comment was submitted.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.FormattedContent">
+            <summary>
+            The formatted (MarkDown, Voat Content Processor) content of this item. This content is typically formatted into HTML output.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.ID">
+            <summary>
+            The comment ID.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsAnonymized">
+            <summary>
+            Marker for anon comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsCollapsed">
+            <summary>
+            Is this comment below the viewing threshold for the user.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsDeleted">
+            <summary>
+            Marker for deleted comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsSaved">
+            <summary>
+            Marker for saved comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsDistinguished">
+            <summary>
+            Marker for moderator distinguished comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsOwner">
+            <summary>
+            Marker for if current account owns this comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.IsSubmitter">
+            <summary>
+            Marker for if comment belongs to OP.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.LastEditDate">
+            <summary>
+            Date comment was edited.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.ParentID">
+            <summary>
+            The parent comment ID. If null then comment is a root comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.SubmissionID">
+            <summary>
+            The submission ID that this comment belongs.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.Subverse">
+            <summary>
+            The subveres that this comment belongs.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Comment.UserName">
+            <summary>
+            The user name who submitted the comment.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.ID">
+            <summary>
+            The submission ID.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.Subverse">
+            <summary>
+            The subverse to which this submission belongs.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.Type">
+            <summary>
+            The type of submission. Values: 1 for Self Posts, 2 for Link Posts
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.UserName">
+            <summary>
+            The user name who submitted the post.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.Title">
+            <summary>
+            The submission title.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.Url">
+            <summary>
+            The url for the submission if present.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.ThumbnailUrl">
+            <summary>
+            The thumbnail for submission.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.Content">
+            <summary>
+            The raw content of this item.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.FormattedContent">
+            <summary>
+            The formatted (MarkDown, Voat Content Processor) content of this item. This content is typically formatted into HTML output.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.CommentCount">
+            <summary>
+            The number of comments submission current contains.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.CreationDate">
+            <summary>
+            The date the submission was made.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.LastEditDate">
+            <summary>
+            Date submission was edited.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.HasPermissionSet">
+            <summary>
+            If submission has a permission set associated with it.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.IsAnonymized">
+            <summary>
+            Is this submission anon
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.IsDeleted">
+            <summary>
+            Is this submission deleted
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.Submission.Views">
+            <summary>
+            The view count of the submission.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.DomainReference.Name">
+            <summary>
+            Specifies the name of the domain object.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.DomainReference.Type">
+            <summary>
+            Specifies the type of domain object.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.DomainReference`1.Data">
+            <summary>
+            Specifies additional data.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.Badges">
+            <summary>
+            The badges the user has accumulated
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.Bio">
+            <summary>
+            Short bio of user
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.CommentPoints">
+            <summary>
+            Comment Contribution Points (CCP)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.CommentVoting">
+            <summary>
+            Comment Voting Behavior (Only available if request is authenticated)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.ProfilePicture">
+            <summary>
+            Path to profile picture
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.RegistrationDate">
+            <summary>
+            Date user registered
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.SubmissionPoints">
+            <summary>
+            Submission Contribution Points (SCP)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.SubmissionVoting">
+            <summary>
+            Submission Voting Distribution (Only available if request is authenticated)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.UserName">
+            <summary>
+            The user name of the user when addressed by name
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserInformation.Moderates">
+            <summary>
+            The subverses the user moderates
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserSubmission.Content">
+            <summary>
+            Optional. A value containing the content/text for a submission. Editable for self-posts only.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserSubmission.IsAdult">
+            <summary>
+            Not Implemented. Specifies if the submission is NSFW or not.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserSubmission.IsAnonymized">
+            <summary>
+            Not Implemented. Specifies if the submission is Anonymous or not.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserSubmission.Title">
+            <summary>
+            The title for a post. This value is editable within a 10 minute window, afterwards title edits are ignored.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserSubmission.Url">
+            <summary>
+            Optional. A value containing the url for a link submission. If this value is set, content is ignored.  Not-Editable once saved.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserValue.Value">
+            <summary>
+            Content of request
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.VoteableObject.Vote">
+            <summary>
+            The vote status of domain type. Null (user not logged in), 0 (unvoted), -1 (downvoted), 1 (upvoted)
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.CommentID">
+            <summary>
+            The CommentID that this message is related.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.Content">
+            <summary>
+            The raw content of this item.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.FormattedContent">
+            <summary>
+            The formatted (MarkDown, Voat Content Processor) content of this item. This content is typically formatted into HTML output.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.ID">
+            <summary>
+            The ID of the message
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.Recipient">
+            <summary>
+            The entity that message was sent to.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.Sender">
+            <summary>
+            The entity that sent message.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.SentDate">
+            <summary>
+            Date message was sent.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.Subject">
+            <summary>
+            The Subject of the message.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.SubmissionID">
+            <summary>
+            The SubmissionID that this message is related.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.Subverse">
+            <summary>
+            The subverse that this message is related.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.Type">
+            <summary>
+            The type of message
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Models.UserMessage.IsRead">
+            <summary>
+            A flag regarding the read state of message.
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.DomainType">
+            <summary>
+            Specifies the type of Domain object
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.DomainType.Subverse">
+            <summary>
+            Represents a subverse domain type
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.DomainType.Set">
+            <summary>
+            Represents a set domain type
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.DomainType.User">
+            <summary>
+            Represents a user domain type
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.MessageState">
+            <summary>
+            The type of messages to retrieve
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.MessageTypeFlag">
+            <summary>
+            The type of messages to get for a user from API
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.MessageTypeFlag.Private">
+            <summary>
+            Private Messages
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.MessageTypeFlag.Sent">
+            <summary>
+            Sent Private Messages
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.MessageTypeFlag.CommentReply">
+            <summary>
+            Comment Reply Messages
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.MessageTypeFlag.CommentMention">
+            <summary>
+            User Mention Messages
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.MessageTypeFlag.SubmissionMention">
+            <summary>
+            User Mention Messages
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.MessageTypeFlag.All">
+            <summary>
+            All Messages
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.Origin.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.Origin.UI">
+            <summary>
+            From the web UI
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.Origin.API">
+            <summary>
+            From the API endpoints
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.Origin.AJAX">
+            <summary>
+            From client-side JS
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.CommentSortAlgorithm.New">
+            <summary>
+            Orders results by creation date
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.CommentSortAlgorithm.Old">
+            <summary>
+            Orders results by creation date ascending
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.CommentSortAlgorithm.Top">
+            <summary>
+            Orders results by sum of vote count
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.CommentSortAlgorithm.Bottom">
+            <summary>
+            Orders results by sum of vote count reversed
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.CommentSortAlgorithm.Intensity">
+            <summary>
+            Orders results by intensity of up/down votes
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.SortAlgorithm">
+            <summary>
+            Specifies the sort algorithm to apply to result set.
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.New">
+            <summary>
+            Orders results by creation date
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Top">
+            <summary>
+            Orders results by upvote count
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Rank">
+            <summary>
+            Orders results by absolute ranking
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Hot">
+            <summary>
+            Orders results by absolute ranking
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.RelativeRank">
+            <summary>
+            Orders results by relative ranking (per subverse)
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Active">
+            <summary>
+            Orders results by last comment date
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Viewed">
+            <summary>
+            Orders results by view count.
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Discussed">
+            <summary>
+            Orders results by comment count
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Bottom">
+            <summary>
+            Orders results by downvote count
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortAlgorithm.Intensity">
+            <summary>
+            Orders results by intensity of up/down votes
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.SortDirection">
+            <summary>
+            Specifies the direction result sets should be sorted.
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortDirection.Default">
+            <summary>
+            Default sort order for result set
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortDirection.Reverse">
+            <summary>
+            Reversed sort order for result set
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Models.SortSpan">
+            <summary>
+            Specifies the time span window to use to filter results in set.
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.All">
+            <summary>
+            Default value
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.Hour">
+            <summary>
+            Limits search span to 1 hour
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.Day">
+            <summary>
+            Limits search span to 1 day
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.Week">
+            <summary>
+            Limits search span to 1 week
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.Month">
+            <summary>
+            Limits search span to ~30 days
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.Quarter">
+            <summary>
+            Limits search span to ~90 days
+            </summary>
+        </member>
+        <member name="F:Voat.Domain.Models.SortSpan.Year">
+            <summary>
+            Limits search span to 1 year
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Query.CachedQuery`1.CacheHit">
+            <summary>
+            After the Execute() method returns this value will signify if the Cache was hit or if data was pulled fresh.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Query.CachedQuery`1.CacheKey">
+            <summary>
+            Implements a unique key. Override this method and provide a unique value.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Query.CachedQuery`1.FullCacheKey">
+            <summary>
+            Appends type information to CacheKey. This should not be overriden if possible.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Voat.Domain.Query.CachedQuery`1.GetData">
+            <summary>
+            Retreives fresh data - this should be the only place new data is retreived in derived classes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Voat.Domain.Query.QuerySubverseBase`1">
+            <summary>
+            This is a base type to abstract the base subverse query
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Voat.Domain.Query.QueryCommentContext">
+            <summary>
+            Allows segments of comments to be retrieved out of the comment tree for a submission.
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Query.QueryCommentSegment">
+            <summary>
+            Allows segments of comments to be retrieved out of the comment tree for a submission.
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.Query.QueryUserPreferences">
+            <summary>
+            Returns the user profile. If no user is logged in return a default profile.
+            </summary>
+        </member>
+        <member name="P:Voat.Domain.Query.Query`1.UserName">
+            <summary>
+            Represents the currently authenticated user name or the User who is executing/owns the context
+            </summary>
+        </member>
+        <member name="T:Voat.Domain.UserData">
+            <summary>
+            The purpose of this class is to cache expensive user based queries that are repeatidly accessed.
+            </summary>
+        </member>
+        <member name="T:Voat.Models.VoteResponse">
+            <summary>
+            The result of the vote request.
+            </summary>
+        </member>
+        <member name="P:Voat.Models.VoteResponse.RecordedValue">
+            <summary>
+            The users recorded vote value after the operation has completed. Use this value to verify vote operation is recorded correctly. Valid values are: -1 (down voted, 0 (revoked, unvoted), or 1 (up voted)
+            </summary>
+        </member>
+        <member name="T:Voat.Rules.BaseCCPVote">
+            <summary>
+            Base class for any simple rules concerning only CCP and a user action.
+            </summary>
+        </member>
+        <member name="M:Voat.Rules.VoatRule.DemandContext(System.Object)">
+            <summary>
+            Mostly for debugging to ensure rule context has necessary data to process requests.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:Voat.Utilities.Components.EventLogger">
+            <summary>
+            Global event/exception logger for Voat
+            </summary>
+        </member>
+        <member name="M:Voat.Utilities.Components.EventLogger.Log(System.Exception,Voat.Domain.Models.Origin)">
+            <summary>
+            Log an exception to the database
+            </summary>
+            <param name="exception">The System.Exception to log</param>
+        </member>
+        <member name="T:Voat.Utilities.EventNotification">
+            <summary>
+            This class is an eventing hub used to simply raise events.
+            </summary>
+        </member>
+        <member name="M:Voat.Utilities.PaginatedList`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <param name="totalCount">If set to -1, the code will attempt to control paging without knowing the full count.</param>
+        </member>
+        <member name="T:Voat.Utilities.VoatPathHelper">
+            <summary>
+            This utility can resolve image paths for Voat. The API benifits from qualified urls and the MVC UI benifits from partials which this utility supports
+            </summary>
+        </member>
+        <member name="M:Voat.Extensions.IsEqual(System.String,System.String)">
+            <summary>
+            Runs case insensitive compare
+            </summary>
+            <param name="string1"></param>
+            <param name="string2"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
